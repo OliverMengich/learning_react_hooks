@@ -18,6 +18,48 @@ const App = () => {
     </div>
   );
 }
+const App = () => {
+  
+  const [windowWidth,setwindowWidth] = useState(window.width);
+  const [userName,setUserName] = useState('Coder');
+  const [txt,setTxt] = useState('');
+  //on every single render
+  useEffect(()=>{
+    // window.addEventListener('resize',updateWindow);
+    setUserName('Coder and Programmer');
+  })
+  //on first Render only(componentDidmount)
+  //react runs this on the first render
+  useEffect(()=>{
+    setUserName('Programmer only')
+  },[])
+  //component did update
+  //on first render + component updating
+  
+  useEffect(()=>{
+    console.log(txt);
+    return ()=>{
+      console.log('We unmounted');
+    }
+  },[txt])
+  //component will unmount
+  useEffect(()=>{
+    window.addEventListener('resize',updateWindow);
+    return () =>{
+      window.removeEventListener('resize',updateWindow)
+    }
+  },[])
+  const updateWindow = ()=>{
+    setwindowWidth(window.width);
+  }
+  return(
+    <div >
+      <h1>{userName}</h1>
+      <h2>{txt}</h2>
+      <input type='text' value={userName} onChange={(e)=>setTxt(e.target.value)} />
+    </div>
+  );
+}
 
 const AppUseEffect = () =>{
 ReactDOM.render(<App />,
